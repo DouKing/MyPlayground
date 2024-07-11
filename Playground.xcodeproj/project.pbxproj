@@ -326,7 +326,6 @@
 			);
 			mainGroup = BFBD06032BA98DED004A69C5;
 			packageReferences = (
-				BFA5CF8C2BC513DA00DF7A4C /* XCRemoteSwiftPackageReference "wcdb" */,
 				BF2384F12BFC8B0F00CD568E /* XCLocalSwiftPackageReference "Packages/Transcoding" */,
 				BF2384F42BFF0CA500CD568E /* XCLocalSwiftPackageReference "Packages/AudioCoverter" */,
 			);
@@ -871,18 +870,6 @@
 			relativePath = Packages/AudioCoverter;
 		};
 /* End XCLocalSwiftPackageReference section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		BFA5CF8C2BC513DA00DF7A4C /* XCRemoteSwiftPackageReference "wcdb" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Tencent/wcdb.git";
-			requirement = {
-				kind = versionRange;
-				maximumVersion = 3.0.0;
-				minimumVersion = 2.1.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		BF2384F22BFC8B0F00CD568E /* Transcoding */ = {
