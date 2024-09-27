@@ -16,11 +16,11 @@ class OtherViewController: UIViewController {
         super.viewDidLoad()
 
         let imageView = UIImageView(image: UIImage(resource: .bdMainTextImg1))
-        imageView.backgroundColor = .black
+        imageView.backgroundColor = .white
         imageView.contentMode = .scaleAspectFill
         
         let imageView2 = UIImageView(image: UIImage(resource: .bdMainSketchImg1))
-        imageView2.backgroundColor = .black
+        imageView2.backgroundColor = .white
         imageView2.contentMode = .scaleAspectFill
         
         imageView.frame = self.view.bounds
@@ -40,6 +40,36 @@ class OtherViewController: UIViewController {
         }
         
         let imageName = "我在精神病院学斩神_林七夜_\(index)"
+        let image = UIImage(named: imageName)!
+        
+        UIView.transition(with: self.topImageView!, duration: 0.75, options: .transitionCrossDissolve) {
+            self.topImageView?.image = image.withAlpha(0.8)
+        } completion: { _ in
+            UIView.transition(with: self.topImageView!, duration: 0.75, options: .transitionCrossDissolve) {
+                self.topImageView?.image = image
+            } completion: { _ in
+                
+            }
+        }
+        
+//        self.topImageView?.image = UIImage(named: imageName)
+//        self.topImageView?.alpha = 0
+//        UIView.animate(withDuration: 0.75) {
+//            self.bottomImageView?.alpha = 0.65
+//            self.topImageView?.alpha = 0.65
+//        } completion: { _ in
+//            UIView.animate(withDuration: 0.75) {
+//                self.bottomImageView?.alpha = 0
+//                self.topImageView?.alpha = 1
+//            } completion: { _ in
+//                self.bottomImageView?.image = self.topImageView?.image
+//                self.view.sendSubviewToBack(self.topImageView!)
+//                (self.topImageView, self.bottomImageView) = (self.bottomImageView, self.topImageView)
+//            }
+//        }
+    }
+    
+    func maskAnimate(_ imageName: String) {
         self.bottomImageView?.image = UIImage(named: imageName)
         self.topImageView?.alpha = 1
         
@@ -75,14 +105,6 @@ class OtherViewController: UIViewController {
                 }
             }
         }
-        
-//        UIView.animate(withDuration: 0.85, delay: 0, options: .curveEaseInOut) {
-//            self.topImageView?.alpha = 0
-//            self.bottomImageView?.alpha = 1
-//        } completion: { _ in
-//            self.view.sendSubviewToBack(self.topImageView!)
-//            (self.topImageView, self.bottomImageView) = (self.bottomImageView, self.topImageView)
-//        }
     }
 }
 
@@ -91,5 +113,20 @@ extension OtherViewController: CAAnimationDelegate {
         self.view.sendSubviewToBack(self.topImageView!)
         self.topImageView?.transform = .identity
         (self.topImageView, self.bottomImageView) = (self.bottomImageView, self.topImageView)
+    }
+}
+
+extension UIImage {
+    func withAlpha(_ alpha: CGFloat) -> UIImage {
+        let rect = CGRect(origin: .zero, size: self.size)
+        
+        let render = UIGraphicsImageRenderer(size: self.size)
+        return render.image { ctx in
+            UIColor.white.set()
+            ctx.fill(CGRect(origin: CGPoint(x: rect.origin.x + rect.size.width / 3, y: rect.origin.y), size: CGSize(width: rect.size.width / 3, height: rect.size.height / 2)))
+            
+            self.draw(in: rect, blendMode: .normal, alpha: 1)
+            self.draw(in: rect, blendMode: .screen, alpha: alpha)
+        }
     }
 }
